@@ -1,8 +1,10 @@
 import React from 'react'
 import {motion} from "motion/react"
 import { Folder, Star, Zap } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 function Sidebar({activeSession,setActiveSession}) {
-    
+
+    const navigate = useNavigate()
 
   return (
 
@@ -50,14 +52,15 @@ function Sidebar({activeSession,setActiveSession}) {
       <div className='rounded-xl border border-slate-200/70 bg-white/70 p-3.5 shadow-sm backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.03] dark:shadow-none'>
             <p className='mb-1 text-[12.5px] font-medium text-slate-700 dark:text-slate-300'>Upgrade Plan</p>
             <p className='mb-3 text-[11.5px] leading-snug text-slate-400 dark:text-slate-500'>Upgrade to Pro for more credits</p>
-            <motion.div
+            <motion.button
+            onClick={()=>navigate("/plan")}
             whileHover={{scale:1.02}}
             whileTap={{scale:0.97}}
             className='flex w-full items-center justify-center gap-1.5 rounded-lg bg-slate-900 py-2 text-[12.5px] font-semibold text-white shadow-sm transition-opacity duration-150 hover:opacity-90 dark:bg-white dark:text-slate-900'
             >
                 <Zap size={13} fill='currentColor'/>
                 Upgrade Now
-            </motion.div>
+            </motion.button>
       </div>
     </div>
   )
