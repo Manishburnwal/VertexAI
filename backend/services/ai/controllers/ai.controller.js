@@ -1,5 +1,6 @@
 import { AIMessage, HumanMessage } from "@langchain/core/messages"
 import { graph } from "../graph/graph.js"
+import { deductCredits } from "../utils/deductCredits.js"
 
 const buildHistory=(history)=>{
     if(!Array.isArray(history)){
@@ -44,6 +45,8 @@ export const chat = async (req,res)=>{
         if(!message){
             return res.status(400).json({message:"message not found"})
         }
+
+
 
         res.setHeader(
             "Content-Type",
@@ -93,6 +96,8 @@ export const chat = async (req,res)=>{
                 recursionLimit:40
             }
         )
+
+        await deductCredits({userId,amount:10})
 
         let finalMessage = ""
 
