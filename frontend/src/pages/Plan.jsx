@@ -202,7 +202,7 @@ function Plan() {
             </div>
 
             <div className='mt-10 text-center text-[11px] text-slate-400 dark:text-slate-600'>
-                Credits reset every month. Unused credits do not roll over.
+                Credits reset every month. Unused credits do not roll over..
             </div>
 
         </div>
