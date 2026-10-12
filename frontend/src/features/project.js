@@ -17,7 +17,7 @@ export const getProjects = async () =>{
         return data
     } catch (error) {
         console.log(error)
-        return null
+        return []
     }
 }
 
@@ -38,7 +38,7 @@ export const getStarredProjects = async () =>{
         return data
     } catch (error) {
         console.log(error)
-        return null
+        return []
     }
 }
 
