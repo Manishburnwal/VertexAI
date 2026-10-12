@@ -1,9 +1,10 @@
 import React from 'react'
 import {motion} from "motion/react"
-import { Folder, Star, Zap } from 'lucide-react'
+import { Coins, Folder, Star, Zap } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 function Sidebar({activeSession,setActiveSession}) {
-
+    const {userData} = useSelector(state=>state.user)
     const navigate = useNavigate()
 
   return (
@@ -47,6 +48,19 @@ function Sidebar({activeSession,setActiveSession}) {
             </motion.div>
       </div>
 
+      <div className='my-4 h-px bg-slate-200/70 dark:bg-white/[0.06]'/>
+
+      <div className='mb-3 rounded-xl border border-slate-200/70 bg-white/70 p-3.5 shadow-sm backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.03] dark:shadow-none'>
+            <div className='flex items-center justify-between'>
+                <div className="flex items-center gap-2">
+                    <div className='flex h-7 w-7 items-center justify-center rounded-lg bg-slate-900/5 text-slate-700 dark:bg-white/10 dark:text-white'><Coins size={14}/></div>
+                    <span className='text-[12px] font-medium text-slate-600 dark:text-slate-400'>AI Credits</span>
+                    <span className='text-[15px] font-bold text-slate-900 dark:text-white'>{userData?.credits || 0}</span>
+                </div>
+            </div>
+
+      </div>
+        
       <div className='my-4 h-px bg-slate-200/70 dark:bg-white/[0.06]'/>
 
       <div className='rounded-xl border border-slate-200/70 bg-white/70 p-3.5 shadow-sm backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.03] dark:shadow-none'>

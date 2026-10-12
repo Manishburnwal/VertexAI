@@ -1,21 +1,36 @@
-import { api } from "../utils/axios"
 
-export const createPayment = async (plan) =>{
-    try {
-        const {data} = await api.post("/api/payment/create",{plan})
-        return data
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
+import { api } from "../utils/axios";
 
-export const verifyPayment = async ({razorpay_order_id, razorpay_payment_id, razorpay_signature}) =>{
-    try {
-        const {data} = await api.post("/api/payment/verify",{razorpay_order_id, razorpay_payment_id, razorpay_signature})
-        return data
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
+export const createPayment = async (plan) => {
+  try {
+    const { data } = await api.post("/api/payment/create", { plan });
+    return data;
+  } catch (error) {
+    console.error(
+      "Payment error:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const verifyPayment = async ({
+  razorpay_order_id,
+  razorpay_payment_id,
+  razorpay_signature,
+}) => {
+  try {
+    const { data } = await api.post("/api/payment/verify", {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+    });
+    return data;
+  } catch (error) {
+    console.error(
+      "Verification error:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};

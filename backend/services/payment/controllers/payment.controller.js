@@ -20,12 +20,12 @@ export const createOrder = async (req,res)=>{
     try {
         const userId=req.headers["x-user-id"]
         if(!userId){
-            res.status(400).json({message:"userid is not found"})
+            return res.status(400).json({message:"userid is not found"})
         }
         const {plan} = req.body
         const selectedPlan = Plans[plan]
         if(!selectedPlan){
-            res.status(400).json({message:"plan is not found"})
+            return res.status(400).json({message:"plan is not found"})
         }
 
         const order = await razorpay.orders.create({
@@ -38,7 +38,8 @@ export const createOrder = async (req,res)=>{
         const payment = await Payment.create({
             userId,
             plan,
-            amount:selectedPlan?.amount,
+            credits:selectedPlan.credits,
+            amount:selectedPlan.amount,
             razorpayOrderId:order.id,
             currency:"INR",
             status:"created"
@@ -67,7 +68,7 @@ export const verify = async (req,res)=>{
     try {
         const userId=req.headers["x-user-id"]
         if(!userId){
-            res.status(400).json({message:"userid is not found"})
+            return res.status(400).json({message:"userid is not found"})
         }
 
         const {razorpay_order_id, razorpay_payment_id, razorpay_signature} = req.body
@@ -87,7 +88,7 @@ export const verify = async (req,res)=>{
             return res.status(400).json({message:"payment is already verified"})
         }
 
-        const generatedSignature = crypto.createHash("sha256",process.env.RAZORPAY_KEY_SECRET).update(`${razorpay_order_id}|${razorpay_payment_id}`).digest("hex")
+        const generatedSignature = crypto.createHmac("sha256",process.env.RAZORPAY_KEY_SECRET).update(`${razorpay_order_id}|${razorpay_payment_id}`).digest("hex")
 
         if(razorpay_signature!==generatedSignature){
             payment.status="failed"
