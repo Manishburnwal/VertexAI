@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="540" viewBox="0 0 1000 540" fill="none">
+  <title>VertexAI microservices architecture</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f0c29"/>
+      <stop offset="1" stop-color="#1b1b3a"/>
+    </linearGradient>
+    <linearGradient id="gw" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#ffffff" stroke-opacity="0.04"/>
+    </pattern>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .sans { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', Arial, sans-serif; }
+    .label { font-size: 15px; font-weight: 700; fill: #f5f3ff; text-anchor: middle; }
+    .sub { font-size: 11px; fill: #c4b5fd; text-anchor: middle; }
+    .tier { font-size: 11px; font-weight: 700; letter-spacing: 2px; fill: #6d6a9c; }
+    .flow { stroke-dasharray: 6 8; animation: dash 1s linear infinite; }
+    .node { animation: breathe 4s ease-in-out infinite; }
+    @keyframes dash { to { stroke-dashoffset: -28 } }
+    @keyframes breathe { 0%, 100% { opacity: .92 } 50% { opacity: 1 } }
+  </style>
+
+  <rect width="1000" height="540" rx="16" fill="url(#bg)"/>
+  <rect width="1000" height="540" rx="16" fill="url(#grid)"/>
+
+  <text class="sans tier" x="24" y="38">CLIENT</text>
+  <text class="sans tier" x="24" y="148">GATEWAY</text>
+  <text class="sans tier" x="24" y="238">SERVICES</text>
+  <text class="sans tier" x="24" y="418">DATA, AI &amp; EXTERNAL</text>
+
+  <!-- connections (drawn first) -->
+  <g stroke-width="2" stroke-linecap="round">
+    <path class="flow" d="M500 80 V130" stroke="#a78bfa"/>
+
+    <path id="g1" class="flow" d="M500 190 C500 225 90 215 90 250"   stroke="#38bdf8"/>
+    <path id="g2" class="flow" d="M500 190 C500 225 254 215 254 250" stroke="#38bdf8"/>
+    <path id="g3" class="flow" d="M500 190 C500 225 418 215 418 250" stroke="#38bdf8"/>
+    <path id="g4" class="flow" d="M500 190 C500 225 582 215 582 250" stroke="#38bdf8"/>
+    <path id="g5" class="flow" d="M500 190 C500 225 746 215 746 250" stroke="#38bdf8"/>
+    <path id="g6" class="flow" d="M500 190 C500 225 910 215 910 250" stroke="#38bdf8"/>
+
+    <!-- auth, project, file -> MongoDB -->
+    <path class="flow" d="M90 320 C90 375 254 375 254 430"   stroke="#4ade80"/>
+    <path class="flow" d="M254 320 V430"                      stroke="#4ade80"/>
+    <path class="flow" d="M418 320 C418 375 254 375 254 430" stroke="#4ade80"/>
+    <!-- payment -> Razorpay -->
+    <path class="flow" d="M582 320 V430" stroke="#60a5fa"/>
+    <!-- ai -> LangGraph -->
+    <path class="flow" d="M746 320 V430" stroke="#f472b6"/>
+    <!-- terminal -> Redis -->
+    <path class="flow" d="M910 320 V430" stroke="#fb923c"/>
+  </g>
+
+  <!-- travelling packets -->
+  <g filter="url(#glow)" fill="#ffffff">
+    <circle r="4"><animateMotion dur="2.4s" repeatCount="indefinite" path="M500 80 V130"/></circle>
+    <circle r="4"><animateMotion dur="2.8s" begin="0.2s" repeatCount="indefinite"><mpath href="#g1"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.4s" begin="0.7s" repeatCount="indefinite"><mpath href="#g2"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.0s" begin="0.4s" repeatCount="indefinite"><mpath href="#g3"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.0s" begin="1.0s" repeatCount="indefinite"><mpath href="#g4"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.4s" begin="1.3s" repeatCount="indefinite"><mpath href="#g5"/></animateMotion></circle>
+    <circle r="4"><animateMotion dur="2.8s" begin="0.9s" repeatCount="indefinite"><mpath href="#g6"/></animateMotion></circle>
+  </g>
+
+  <!-- frontend -->
+  <g class="node">
+    <rect x="395" y="20" width="210" height="60" rx="14" fill="#312e81" stroke="#a78bfa" stroke-width="1.5"/>
+    <text class="sans label" x="500" y="48">Frontend</text>
+    <text class="sans sub" x="500" y="66">React + Vite</text>
+  </g>
+
+  <!-- gateway -->
+  <g class="node" filter="url(#glow)">
+    <rect x="395" y="130" width="210" height="60" rx="14" fill="url(#gw)" stroke="#c4b5fd" stroke-width="1.5"/>
+  </g>
+  <text class="sans label" x="500" y="158">API Gateway</text>
+  <text class="sans sub" x="500" y="176" fill="#e0e7ff">routing &#8226; auth &#8226; rate limits</text>
+
+  <!-- services -->
+  <g class="node" style="animation-delay:0s"><rect x="20" y="250" width="140" height="70" rx="12" fill="#14213d" stroke="#38bdf8"/><text class="sans label" x="90" y="280">Auth</text><text class="sans sub" x="90" y="300">JWT &#8226; users</text></g>
+  <g class="node" style="animation-delay:.4s"><rect x="184" y="250" width="140" height="70" rx="12" fill="#14213d" stroke="#38bdf8"/><text class="sans label" x="254" y="280">Project</text><text class="sans sub" x="254" y="300">workspaces</text></g>
+  <g class="node" style="animation-delay:.8s"><rect x="348" y="250" width="140" height="70" rx="12" fill="#14213d" stroke="#38bdf8"/><text class="sans label" x="418" y="280">File</text><text class="sans sub" x="418" y="300">storage &#8226; sync</text></g>
+  <g class="node" style="animation-delay:1.2s"><rect x="512" y="250" width="140" height="70" rx="12" fill="#0c2a4a" stroke="#60a5fa"/><text class="sans label" x="582" y="280">Payment</text><text class="sans sub" x="582" y="300" fill="#93c5fd">subscriptions</text></g>
+  <g class="node" style="animation-delay:1.6s"><rect x="676" y="250" width="140" height="70" rx="12" fill="#2a1548" stroke="#f472b6"/><text class="sans label" x="746" y="280">AI</text><text class="sans sub" x="746" y="300" fill="#f9a8d4">code generation</text></g>
+  <g class="node" style="animation-delay:2s"><rect x="840" y="250" width="140" height="70" rx="12" fill="#3a1f0d" stroke="#fb923c"/><text class="sans label" x="910" y="280">Terminal</text><text class="sans sub" x="910" y="300" fill="#fdba74">Socket.IO</text></g>
+
+  <!-- data, ai & external -->
+  <g class="node"><rect x="179" y="430" width="150" height="70" rx="12" fill="#0d2818" stroke="#4ade80"/><text class="sans label" x="254" y="460">MongoDB</text><text class="sans sub" x="254" y="480" fill="#86efac">persistent storage</text></g>
+  <g class="node" style="animation-delay:1s"><rect x="507" y="430" width="150" height="70" rx="12" fill="#0c2a4a" stroke="#60a5fa"/><text class="sans label" x="582" y="460">Razorpay</text><text class="sans sub" x="582" y="480" fill="#93c5fd">payment gateway</text></g>
+  <g class="node" style="animation-delay:1.5s"><rect x="671" y="430" width="150" height="70" rx="12" fill="#2a1548" stroke="#f472b6"/><text class="sans label" x="746" y="460">LangGraph</text><text class="sans sub" x="746" y="480" fill="#f9a8d4">agents &#8226; LLM</text></g>
+  <g class="node" style="animation-delay:2s"><rect x="835" y="430" width="150" height="70" rx="12" fill="#3a1f0d" stroke="#fb923c"/><text class="sans label" x="910" y="460">Redis</text><text class="sans sub" x="910" y="480" fill="#fdba74">cache &#8226; sessions</text></g>
+</svg>

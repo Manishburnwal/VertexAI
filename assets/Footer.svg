@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="180" viewBox="0 0 1200 180" fill="none">
+  <title>Footer wave</title>
+  <defs>
+    <linearGradient id="w1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="0.5" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#db2777"/>
+    </linearGradient>
+  </defs>
+
+  <!-- back wave -->
+  <path fill="url(#w1)" fill-opacity="0.25"
+        d="M0,90 C100,40 200,40 300,90 S500,140 600,90 S800,40 900,90 S1100,140 1200,90 S1400,40 1500,90 S1700,140 1800,90 S2000,40 2100,90 S2300,140 2400,90 L2400,180 L0,180 Z">
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="-1200 0" dur="14s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- middle wave -->
+  <path fill="url(#w1)" fill-opacity="0.45"
+        d="M0,110 C100,60 200,60 300,110 S500,160 600,110 S800,60 900,110 S1100,160 1200,110 S1400,60 1500,110 S1700,160 1800,110 S2000,60 2100,110 S2300,160 2400,110 L2400,180 L0,180 Z">
+    <animateTransform attributeName="transform" type="translate" from="-1200 0" to="0 0" dur="10s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- front wave -->
+  <path fill="#0f0c29"
+        d="M0,135 C100,95 200,95 300,135 S500,175 600,135 S800,95 900,135 S1100,175 1200,135 S1400,95 1500,135 S1700,175 1800,135 S2000,95 2100,135 S2300,175 2400,135 L2400,180 L0,180 Z">
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="-1200 0" dur="7s" repeatCount="indefinite"/>
+  </path>
+</svg>
